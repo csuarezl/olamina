@@ -137,23 +137,26 @@
     gap:1.2rem;
   }
   .photo-card{
-    aspect-ratio:3/4;
     background:var(--white);
-    padding:0.7rem 0.7rem 2rem;
+    padding:0.7rem 0.7rem 0.5rem;
     box-shadow: 0 8px 24px rgba(74,134,163,0.12);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     position:relative;
+    display:flex;
+    flex-direction:column;
   }
   .photo-card:hover{
     transform: translateY(-6px);
     box-shadow: 0 15px 35px rgba(74,134,163,0.2);
   }
   .photo-slot{
-    width:100%;height:100%;
+    width:100%;
+    aspect-ratio:3/4;
     background:linear-gradient(135deg, var(--bg-soft), #c4dae5);
     display:flex;flex-direction:column;
     align-items:center;justify-content:center;
     color:var(--accent-deep);position:relative;overflow:hidden;
+    flex-shrink:0;
   }
   .photo-slot img{width:100%;height:100%;object-fit:cover;display:block}
   .photo-slot .placeholder{
@@ -162,11 +165,12 @@
     text-align:center;padding:0 0.5rem;
   }
   .photo-caption{
-    position:absolute;bottom:0.5rem;left:0;right:0;
     text-align:center;
     font-family:'Cormorant Garamond',serif;
     font-style:italic;font-size:0.9rem;
     color:var(--ink-soft);
+    padding: 0.8rem 0.3rem 0.4rem;
+    line-height:1.3;
   }
 
   /* SONGS */
@@ -545,8 +549,8 @@
   @media (max-width: 600px){
     section.chapter{padding: 4rem 1.2rem}
     .gallery{grid-template-columns:repeat(2, 1fr);gap:0.9rem}
-    .photo-card{padding:0.5rem 0.5rem 1.5rem}
-    .photo-caption{font-size:0.8rem;bottom:0.4rem}
+    .photo-card{padding:0.5rem 0.5rem 0.4rem}
+    .photo-caption{font-size:0.8rem;padding: 0.7rem 0.2rem 0.3rem;line-height:1.25}
     .trivia-box{padding: 1.5rem 1.2rem}
     .learned-grid{gap:0.7rem}
     .learned-back{padding:0.8rem}

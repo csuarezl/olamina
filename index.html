@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#cfe3ef">
+<title> hola mina XD🤍</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #eaf3f8;
+    --bg-soft: #d8e8f0;
+    --accent: #7ab0c9;
+    --accent-deep: #4a86a3;
+    --ink: #2f4a5a;
+    --ink-soft: #5a7585;
+    --white: #ffffff;
+    --line: rgba(74,134,163,0.18);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',sans-serif;
+    font-weight:300;
+    background: var(--bg);
+    color: var(--ink);
+    min-height:100vh;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    -webkit-text-size-adjust:100%;
+  }
+  body::before{
+    content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(122,176,201,0.12) 0%, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(122,176,201,0.1) 0%, transparent 45%);
+  }
+  main{position:relative;z-index:1}
+
+  /* HERO */
+  .hero{
+    min-height:100vh;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+    padding:2rem 1.5rem;
+  }
+  .hero-eyebrow{
+    font-size:0.75rem;letter-spacing:0.3em;
+    text-transform:uppercase;color:var(--accent-deep);
+    margin-bottom:2rem;font-weight:500;
+    opacity:0;animation: fadeUp 1s ease 0.3s forwards;
+  }
+  .hero h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2.8rem, 9vw, 5.5rem);
+    font-weight:400;line-height:1.05;
+    color: var(--ink);
+    margin-bottom:1.5rem;
+    opacity:0;animation: fadeUp 1.2s ease 0.6s forwards;
+  }
+  .hero h1 em{font-style:italic;color:var(--accent-deep)}
+  .hero-line{
+    width:40px;height:1px;background:var(--accent);
+    margin:1.5rem 0;
+    opacity:0;animation: lineExpand 1s ease 1.2s forwards;
+  }
+  @keyframes lineExpand{from{width:0;opacity:0}to{width:60px;opacity:1}}
+  .hero p{
+    font-size:clamp(0.95rem, 2.2vw, 1.05rem);
+    max-width:480px;line-height:1.7;
+    color: var(--ink-soft);
+    margin-bottom:2.5rem;
+    opacity:0;animation: fadeUp 1s ease 1.5s forwards;
+  }
+  .btn{
+    background: transparent;
+    color: var(--ink);
+    border:1px solid var(--accent-deep);
+    padding:0.85rem 2rem;
+    font-family:'Inter',sans-serif;font-weight:400;
+    font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;
+    cursor:pointer;
+    transition: all 0.4s ease;
+    opacity:0;animation: fadeUp 1s ease 1.8s forwards;
+  }
+  .btn:hover, .btn:active{
+    background: var(--accent-deep);
+    color: var(--white);
+  }
+  .btn.solid{background: var(--accent-deep);color: var(--white)}
+  .btn.solid:hover, .btn.solid:active{background: var(--ink);border-color: var(--ink)}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  /* MUSIC BUTTON */
+  .music-btn{
+    position:fixed;top:1rem;right:1rem;z-index:100;
+    background: var(--white);border:1px solid var(--line);
+    width:44px;height:44px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    box-shadow:0 4px 12px rgba(74,134,163,0.12);
+    transition:all 0.3s ease;font-size:1rem;
+    color:var(--accent-deep);
+  }
+  .music-btn:hover{transform:scale(1.08)}
+  .music-btn.playing{background: var(--accent-deep);color:white;border-color:var(--accent-deep)}
+
+  /* CHAPTERS */
+  section.chapter{
+    padding: 5rem 1.5rem;
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .chapter-num{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;font-size:1.1rem;
+    color:var(--accent-deep);margin-bottom:0.5rem;
+  }
+  .chapter-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2rem, 6vw, 3.2rem);
+    font-weight:400;line-height:1.15;
+    text-align:center;margin-bottom:3rem;
+    color:var(--ink);max-width:600px;
+  }
+  .chapter-title em{font-style:italic;color:var(--accent-deep)}
+  .chapter-title::after{
+    content:'';display:block;width:30px;height:1px;
+    background:var(--accent);margin:1.2rem auto 0;
+  }
+
+  /* GALLERY */
+  .gallery-wrap{max-width:880px;width:100%}
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1.2rem;
+  }
+  .photo-card{
+    aspect-ratio:3/4;
+    background:var(--white);
+    padding:0.7rem 0.7rem 2rem;
+    box-shadow: 0 8px 24px rgba(74,134,163,0.12);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position:relative;
+  }
+  .photo-card:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(74,134,163,0.2);
+  }
+  .photo-slot{
+    width:100%;height:100%;
+    background:linear-gradient(135deg, var(--bg-soft), #c4dae5);
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    color:var(--accent-deep);position:relative;overflow:hidden;
+  }
+  .photo-slot img{width:100%;height:100%;object-fit:cover;display:block}
+  .photo-slot .placeholder{
+    font-size:0.7rem;letter-spacing:0.15em;
+    text-transform:uppercase;opacity:0.6;
+    text-align:center;padding:0 0.5rem;
+  }
+  .photo-caption{
+    position:absolute;bottom:0.5rem;left:0;right:0;
+    text-align:center;
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;font-size:0.9rem;
+    color:var(--ink-soft);
+  }
+
+  /* SONGS */
+  .songs-wrap{max-width:560px;width:100%}
+  .songs-list{display:flex;flex-direction:column;gap:1rem}
+  .song-item{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:0.8rem;
+    transition: all 0.3s ease;
+  }
+  .song-item:hover{
+    box-shadow: 0 8px 20px rgba(74,134,163,0.15);
+    transform: translateY(-2px);
+  }
+  .song-meta{
+    display:flex;align-items:center;gap:0.7rem;
+    margin-bottom:0.7rem;
+    font-size:0.75rem;color:var(--ink-soft);
+    letter-spacing:0.1em;text-transform:uppercase;
+  }
+  .song-num{
+    width:24px;height:24px;border-radius:50%;
+    background:var(--bg-soft);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--accent-deep);font-weight:500;
+    flex-shrink:0;
+  }
+  .song-note{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;font-size:0.95rem;
+    color:var(--ink-soft);letter-spacing:normal;
+    text-transform:none;
+  }
+  .song-embed{
+    border-radius:8px;overflow:hidden;
+    background:var(--bg-soft);
+  }
+  .song-embed iframe{
+    width:100%;border:none;display:block;
+    border-radius:8px;
+  }
+
+  /* LEARNED CARDS — Gudetama flip */
+  .learned-wrap{max-width:720px;width:100%}
+  .learned-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1rem;
+  }
+  .learned-card{
+    aspect-ratio: 1/1;
+    perspective: 1000px;
+    cursor:pointer;
+  }
+  .learned-inner{
+    position:relative;
+    width:100%;height:100%;
+    transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+  .learned-card.flipped .learned-inner{
+    transform: rotateY(180deg);
+  }
+  .learned-face{
+    position:absolute;inset:0;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+    border-radius:16px;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .learned-front{
+    background: linear-gradient(135deg, var(--bg-soft), #c4dae5);
+    border: 1px solid var(--line);
+    box-shadow: 0 6px 20px rgba(74,134,163,0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    position:relative;
+  }
+  /* Placeholder visible mientras no haya imagen */
+  .learned-front::before{
+    content:'';
+    position:absolute;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    width:30%;
+    aspect-ratio:1/1;
+    border-radius:50%;
+    background:rgba(74,134,163,0.15);
+  }
+  .learned-front img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:16px;
+    display:block;
+    position:relative;
+    z-index:2;
+  }
+  .learned-card:hover .learned-front{
+    box-shadow: 0 12px 28px rgba(74,134,163,0.18);
+    transform: scale(1.02);
+  }
+  .learned-back{
+    background: linear-gradient(135deg, var(--accent-deep), #3a6d85);
+    color: var(--white);
+    transform: rotateY(180deg);
+    padding: 1.2rem;
+    text-align:center;
+  }
+  .learned-back-text{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+    line-height:1.4;
+  }
+  .learned-back-num{
+    position:absolute;top:0.6rem;left:0.8rem;
+    font-size:0.65rem;letter-spacing:0.2em;
+    text-transform:uppercase;opacity:0.6;
+  }
+  /* CSS Gudetama (huevo perezoso) */
+  .gude{
+    position:relative;
+    width: 75%;
+    aspect-ratio: 1/1;
+    transition: transform 0.4s ease;
+  }
+  .learned-card:hover .gude{transform: translateY(-3px)}
+  /* Cáscara inferior */
+  .gude::before{
+    content:'';
+    position:absolute;
+    bottom: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 78%;
+    height: 38%;
+    background: var(--white);
+    border: 3px solid #2d2d2d;
+    border-top: none;
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    z-index: 1;
+  }
+  /* Yema (cuerpo del huevito) */
+  .gude::after{
+    content:'';
+    position:absolute;
+    bottom: 18%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 50%;
+    background: radial-gradient(ellipse at 35% 30%, #ffeb4d, #ffc933 65%, #f0b020);
+    border: 2.5px solid #2d2d2d;
+    border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+    z-index: 2;
+    box-shadow: inset -4px -3px 0 rgba(0,0,0,0.06);
+  }
+  /* Ojitos y boca */
+  .gude-face{
+    position:absolute;
+    bottom: 38%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 32%;
+    height: 12%;
+    z-index: 3;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .gude-eye{
+    width: 5px;
+    height: 5px;
+    background: #2d2d2d;
+    border-radius: 50%;
+  }
+  .gude-mouth{
+    position:absolute;
+    bottom: 32%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 4px;
+    background: #2d2d2d;
+    border-radius: 50%;
+    z-index: 3;
+  }
+  /* Pequeño brillo en la yema */
+  .gude-shine{
+    position:absolute;
+    bottom: 55%;
+    left: 32%;
+    width: 10%;
+    height: 8%;
+    background: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    z-index: 3;
+    transform: rotate(-20deg);
+  }
+
+
+  .trivia-wrap{max-width:560px;width:100%}
+  .trivia-box{
+    background: var(--white);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 12px 30px rgba(74,134,163,0.12);
+    border: 1px solid var(--line);
+    min-height: 360px;
+    display:flex;flex-direction:column;
+  }
+  .trivia-intro{text-align:center;margin:auto 0}
+  .trivia-intro h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.6rem;color:var(--ink);
+    margin-bottom:1rem;font-weight:400;
+  }
+  .trivia-intro p{
+    font-size:0.95rem;color:var(--ink-soft);
+    line-height:1.6;margin-bottom:1.8rem;
+  }
+  .progress-bar{
+    height:3px;background:var(--bg-soft);
+    border-radius:999px;overflow:hidden;margin-bottom:1.5rem;
+  }
+  .progress-fill{
+    height:100%;background:var(--accent-deep);
+    transition:width 0.5s ease;
+  }
+  .question-counter{
+    font-size:0.7rem;letter-spacing:0.2em;
+    text-transform:uppercase;color:var(--accent-deep);
+    margin-bottom:0.8rem;
+  }
+  .question-text{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.4rem;line-height:1.3;color:var(--ink);
+    margin-bottom:1.8rem;
+  }
+  .options{display:flex;flex-direction:column;gap:0.6rem;flex:1}
+  .option{
+    background:transparent;
+    border:1px solid var(--line);
+    padding:0.9rem 1.1rem;
+    border-radius:8px;
+    font-family:'Inter',sans-serif;
+    font-size:0.95rem;font-weight:400;
+    color:var(--ink);cursor:pointer;text-align:left;
+    transition:all 0.25s ease;
+    line-height:1.4;
+  }
+  .option:hover:not(:disabled){
+    border-color:var(--accent-deep);
+    background:rgba(122,176,201,0.06);
+  }
+  .option:disabled{cursor:default;opacity:0.7}
+  .option.correct{
+    background:rgba(160,200,160,0.15);
+    border-color:#5a9d5a;color:#3a6d3a;
+    opacity:1;
+  }
+  .option.wrong{
+    background:rgba(200,130,130,0.1);
+    border-color:#b06060;color:#8a4040;
+    opacity:1;
+  }
+  .feedback{
+    margin-top:1.2rem;
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;font-size:1.05rem;
+    text-align:center;min-height:1.5rem;
+    color:var(--accent-deep);
+  }
+  .result-screen{text-align:center;margin:auto 0}
+  .result-screen .icon{
+    font-size:2.5rem;margin-bottom:1rem;
+    display:inline-block;
+  }
+  .result-screen h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.6rem;color:var(--ink);
+    margin-bottom:0.5rem;font-weight:400;
+  }
+  .result-screen .score{
+    font-size:0.85rem;letter-spacing:0.2em;
+    text-transform:uppercase;color:var(--accent-deep);
+    margin-bottom:1.5rem;
+  }
+  .result-screen p{
+    font-size:0.95rem;color:var(--ink-soft);
+    line-height:1.6;margin-bottom:1.8rem;
+  }
+
+  /* SURPRISE */
+  .surprise{
+    display:none;
+    min-height:100vh;
+    padding:5rem 1.5rem;
+    align-items:center;justify-content:center;
+    text-align:center;flex-direction:column;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+  }
+  .surprise.active{display:flex;animation: fadeIn 1.5s ease}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .surprise-content{
+    max-width:560px;width:100%;
+    background:var(--white);
+    padding:clamp(2rem, 6vw, 3rem);
+    border-radius:16px;
+    box-shadow: 0 20px 50px rgba(74,134,163,0.18);
+  }
+  .surprise-image{
+    width:100%;
+    aspect-ratio:16/10;
+    margin-bottom:2rem;
+    border-radius:12px;
+    overflow:hidden;
+    position:relative;
+  }
+  .surprise-image img{width:100%;height:100%;object-fit:cover;display:block}
+  .surprise-image.default{
+    background:
+      radial-gradient(circle at 30% 40%, rgba(255,255,255,0.6) 0%, transparent 50%),
+      radial-gradient(circle at 70% 60%, rgba(122,176,201,0.3) 0%, transparent 50%),
+      linear-gradient(135deg, #c4dae5, #a0c4d6);
+  }
+  .surprise-image.default::after{
+    content:'';
+    position:absolute;
+    width:120px;height:120px;
+    background: radial-gradient(circle, var(--white) 30%, transparent 70%);
+    border-radius:50%;
+    top:50%;left:50%;transform:translate(-50%,-50%);
+    opacity:0.7;
+    animation: pulse-soft 3s ease-in-out infinite;
+  }
+  @keyframes pulse-soft{
+    0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.7}
+    50%{transform:translate(-50%,-50%) scale(1.15);opacity:0.4}
+  }
+  .surprise h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.8rem, 5vw, 2.5rem);
+    font-weight:400;color:var(--ink);
+    margin-bottom:1.2rem;line-height:1.2;
+  }
+  .surprise h2 em{font-style:italic;color:var(--accent-deep)}
+  .surprise-text{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.1rem;line-height:1.7;
+    color:var(--ink-soft);
+    font-style:italic;
+  }
+  .surprise-text p{margin-bottom:1rem}
+  .surprise-sign{
+    margin-top:2rem;
+    font-size:0.75rem;letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--accent-deep);
+  }
+
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity 1s ease, transform 1s ease}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+
+  footer{
+    text-align:center;padding:3rem 1.5rem 2rem;
+    font-size:0.7rem;letter-spacing:0.2em;
+    text-transform:uppercase;color:var(--accent-deep);
+    opacity:0.7;
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px){
+    section.chapter{padding: 4rem 1.2rem}
+    .gallery{grid-template-columns:repeat(2, 1fr);gap:0.9rem}
+    .photo-card{padding:0.5rem 0.5rem 1.5rem}
+    .photo-caption{font-size:0.8rem;bottom:0.4rem}
+    .trivia-box{padding: 1.5rem 1.2rem}
+    .learned-grid{gap:0.7rem}
+    .learned-back{padding:0.8rem}
+    .question-text{font-size:1.2rem}
+    .option{padding:0.8rem 1rem;font-size:0.9rem}
+    .music-btn{top:0.8rem;right:0.8rem;width:40px;height:40px}
+    .hero{padding:2rem 1.2rem}
+  }
+  @media (max-width: 380px){
+    .gallery{grid-template-columns:repeat(2, 1fr);gap:0.7rem}
+    .hero h1{font-size:2.4rem}
+  }
+</style>
+</head>
+<body>
+
+<button class="music-btn" id="musicBtn" title="Música" aria-label="Reproducir música">♪</button>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Nir</div>
+  <h1>hoy cumplimos <em>un mes más</em><br>juntitas</h1>
+  <div class="hero-line"></div>
+  <p>aquí armé algo pensando en ti, ojalá te saque una sonrisa</p>
+  <button class="btn" onclick="document.getElementById('cap1').scrollIntoView({behavior:'smooth'})">comenzar</button>
+</section>
+
+<!-- CAPÍTULO 1 — FOTOS -->
+<section class="chapter" id="cap1">
+  <div class="gallery-wrap reveal">
+    <div class="chapter-num">i.</div>
+    <h2 class="chapter-title">por más sonrisas <em>así juntitas</em></h2>
+    <div class="gallery">
+      <div class="photo-card">
+        <div class="photo-slot"><img src="fotos/foto1.jpg" alt=""></div>
+        <div class="photo-caption">— en cada aventura somos el mejor equipo —</div>
+      </div>
+      <div class="photo-card">
+        <div class="photo-slot"><img src="fotos/foto2.jpg" alt=""></div>
+        <div class="photo-caption">— no hay piedra que no podamos superar —</div>
+      </div>
+      <div class="photo-card">
+        <div class="photo-slot"><img src="fotos/foto3.jpg" alt=""></div>
+        <div class="photo-caption">— porque siempre nos está esperando el sol —</div>
+      </div>
+      <div class="photo-card">
+        <div class="photo-slot"><img src="fotos/foto4.jpg" alt=""></div>
+        <div class="photo-caption">— sé que llegamos muy alto —</div>
+      </div>
+      <div class="photo-card">
+        <div class="photo-slot"><img src="fotos/foto5.jpg" alt=""></div>
+        <div class="photo-caption">— aunque el camino sea sinuoso —</div>
+      </div>
+      <div class="photo-card">
+        <div class="photo-slot"><img src="fotos/foto6.jpg" alt=""></div>
+        <div class="photo-caption">— valdrá la pena si escontigo —</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPÍTULO 2 — CANCIONES -->
+<section class="chapter">
+  <div class="songs-wrap reveal">
+    <div class="chapter-num">ii.</div>
+    <h2 class="chapter-title">4 canciones que <em>me recuerdan</em> a ti</h2>
+    <div class="songs-list">
+
+    
+      </div>
+
+      <div class="song-item">
+        <div class="song-meta">
+          <div class="song-num">1</div>
+          <div class="song-note">Tu cuerpo y el mío van a la vez</div>
+        </div>
+        <div class="song-embed">
+          <iframe src="https://open.spotify.com/embed/track/5C9IeDOtfwkDUGd9aF2ELI?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <div class="song-item">
+        <div class="song-meta">
+          <div class="song-num">2</div>
+          <div class="song-note">Let our love heal us all</div>
+        </div>
+        <div class="song-embed">
+          <iframe src="https://open.spotify.com/embed/track/1pzJboOZaDNwshBnOlNh3a?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <div class="song-item">
+        <div class="song-meta">
+          <div class="song-num">3</div>
+          <div class="song-note">I want you around</div>
+        </div>
+        <div class="song-embed">
+          <iframe src="https://open.spotify.com/embed/track/2gjidmxtA1pyj2HYrdOTG1?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <div class="song-item">
+        <div class="song-meta">
+          <div class="song-num">5</div>
+          <div class="song-note">Esta te la dedico por primera vez</div>
+        </div>
+        <div class="song-embed">
+          <iframe src="https://open.spotify.com/embed/track/63xdwScd1Ai1GigAwQxE8y?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CAPÍTULO 3 — COSAS QUE APRENDÍ -->
+<section class="chapter">
+  <div class="learned-wrap reveal">
+    <div class="chapter-num">iii.</div>
+    <h2 class="chapter-title">seis cosas que <em>aprendí</em> de ti</h2>
+    <div class="learned-grid">
+
+      <div class="learned-card" onclick="this.classList.toggle('flipped')">
+        <div class="learned-inner">
+          <div class="learned-face learned-front">
+            <img src="fotos/icono1.jpg" alt="">
+          </div>
+          <div class="learned-face learned-back">
+            <div class="learned-back-num">01</div>
+            <div class="learned-back-text">que la perseverancia es la amiga del éxito</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="learned-card" onclick="this.classList.toggle('flipped')">
+        <div class="learned-inner">
+          <div class="learned-face learned-front">
+            <img src="fotos/icono2.jpg" alt="">
+          </div>
+          <div class="learned-face learned-back">
+            <div class="learned-back-num">02</div>
+            <div class="learned-back-text">que los abrazos largos curan más que nada en este mundo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="learned-card" onclick="this.classList.toggle('flipped')">
+        <div class="learned-inner">
+          <div class="learned-face learned-front">
+            <img src="fotos/icono3.jpg" alt="">
+          </div>
+          <div class="learned-face learned-back">
+            <div class="learned-back-num">03</div>
+            <div class="learned-back-text">que se termina lo que uno empieza (:</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="learned-card" onclick="this.classList.toggle('flipped')">
+        <div class="learned-inner">
+          <div class="learned-face learned-front">
+            <img src="fotos/icono4.jpg" alt="">
+          </div>
+          <div class="learned-face learned-back">
+            <div class="learned-back-num">04</div>
+            <div class="learned-back-text">que escuchar es más importante que tener la razón</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="learned-card" onclick="this.classList.toggle('flipped')">
+        <div class="learned-inner">
+          <div class="learned-face learned-front">
+            <img src="fotos/icono5.jpg" alt="">
+          </div>
+          <div class="learned-face learned-back">
+            <div class="learned-back-num">05</div>
+            <div class="learned-back-text">que las pequeñas cosas son las que más importan</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="learned-card" onclick="this.classList.toggle('flipped')">
+        <div class="learned-inner">
+          <div class="learned-face learned-front">
+            <img src="fotos/icono6.jpg" alt="">
+          </div>
+          <div class="learned-face learned-back">
+            <div class="learned-back-num">06</div>
+            <div class="learned-back-text">que el amor de verdad se nota en lo cotidiano</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CAPÍTULO 4 — TRIVIA -->
+<section class="chapter">
+  <div class="trivia-wrap reveal">
+    <div class="chapter-num">iv.</div>
+    <h2 class="chapter-title">¿cuánto <em>sabes de la relación</em>?</h2>
+    <div class="trivia-box">
+      <div class="trivia-intro" id="triviaIntro">
+        <h3>cinco preguntas</h3>
+        <p>una pequeña prueba. si las aciertas todas, hay una sorpresa esperándote al final.</p>
+        <button class="btn solid" onclick="startTrivia()">empezar</button>
+      </div>
+      <div id="triviaQuestion" style="display:none"></div>
+      <div id="triviaResult" style="display:none"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SORPRESA (oculta hasta ganar) -->
+<section class="surprise" id="surprise">
+  <div class="surprise-content">
+    <div class="surprise-image default" id="surpriseImage">
+      <img src="fotos/sorpresa.jpg" alt=""> -->
+    </div>
+    <h2>lo lograste, <em>nir</em></h2>
+    <div class="surprise-text">
+      <p>sabía que me conocías mejor que nadie.</p>
+      <p>y por eso, te ganaste una salidita al cine y algo más (que podemos canjear ese día, es sorpresu.</p>
+      <p>gracias por ser tú, gracias por estar, sigamos de la mano, acompañándonos siempre.</p>
+    </div>
+    <div class="surprise-sign">— te amo mucho</div>
+  </div>
+</section>
+
+<footer>hecho con cariño · mayo 2026</footer>
+
+</main>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) e.target.classList.add('visible');
+    });
+  },{threshold:0.12});
+  reveals.forEach(r=>obs.observe(r));
+
+  // ===== TRIVIA =====
+  // Personaliza estas preguntas con datos reales de ustedes.
+  // correct = índice (0,1,2,3) de la respuesta correcta.
+  const triviaQuestions = [
+    {
+      q: "¿cuál fue la primera peli que vimos en el cine?",
+      options: ["la mostri tetona", "vértigo", "don't worry darling", "smile"],
+      correct: 1,
+      hint: "ese día no podía dejar de mirarte"
+    },
+    {
+      q: "¿qué es lo primero que me gustó de ti?",
+      options: ["tu sentido del humor", "tu amor por la música", "que ames a los animales", "todito a la vez"],
+      correct: 3,
+      hint: "fue todo, fuiste tú"
+    },
+    {
+      q: "¿cuándo me dijiste te amo por primera vez?",
+      options: ["31 de octubre de 2022", "6 de julio de 2022", "17 de marzo de 2022", "18 de junio de 2022"],
+      correct: 0,
+      hint: "gracias por animarte a decirlo"
+    },
+    {
+      q: "¿cuándo fue la primera canción que intentaste en nuestra jammin virtual?",
+      options: ["the scientist", "shape of my heart", "linger", "wonderwall"],
+      correct: 0,
+      hint: "con tutorial de YouTube (:"
+    },
+    {
+      q: "¿cuánto te amo?",
+      options: ["mucho", "demasiado", "más que ayer", "infinito y un poquito más"],
+      correct: 3,
+      hint: "no hay número que alcance"
+    }
+  ];
+
+  let triviaIdx = 0, triviaScore = 0;
+  const triviaIntro = document.getElementById('triviaIntro');
+  const triviaQ = document.getElementById('triviaQuestion');
+  const triviaResult = document.getElementById('triviaResult');
+
+  function startTrivia(){
+    triviaIdx = 0; triviaScore = 0;
+    triviaIntro.style.display = 'none';
+    triviaResult.style.display = 'none';
+    triviaQ.style.display = 'block';
+    renderQuestion();
+  }
+
+  function renderQuestion(){
+    const item = triviaQuestions[triviaIdx];
+    const progress = (triviaIdx / triviaQuestions.length) * 100;
+    triviaQ.innerHTML = `
+      <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
+      <div class="question-counter">${triviaIdx+1} / ${triviaQuestions.length}</div>
+      <div class="question-text">${item.q}</div>
+      <div class="options">
+        ${item.options.map((opt,i)=>`<button class="option" data-i="${i}">${opt}</button>`).join('')}
+      </div>
+      <div class="feedback" id="feedback"></div>
+    `;
+    triviaQ.querySelectorAll('.option').forEach(btn=>{
+      btn.addEventListener('click', ()=>answerQuestion(parseInt(btn.dataset.i)));
+    });
+  }
+
+  function answerQuestion(chosen){
+    const item = triviaQuestions[triviaIdx];
+    const buttons = triviaQ.querySelectorAll('.option');
+    buttons.forEach((b,i)=>{
+      b.disabled = true;
+      if(i === item.correct) b.classList.add('correct');
+      else if(i === chosen) b.classList.add('wrong');
+    });
+    if(chosen === item.correct) triviaScore++;
+    document.getElementById('feedback').textContent = item.hint;
+    setTimeout(()=>{
+      triviaIdx++;
+      if(triviaIdx >= triviaQuestions.length) showResult();
+      else renderQuestion();
+    }, 2000);
+  }
+
+  function showResult(){
+    triviaQ.style.display = 'none';
+    triviaResult.style.display = 'block';
+    const perfect = triviaScore === triviaQuestions.length;
+    const icon = perfect ? '✦' : triviaScore >= 3 ? '◇' : '◌';
+    const titulo = perfect ? 'perfecto.' : triviaScore >= 3 ? 'casi.' : 'gracias por jugar.';
+    const mensaje = perfect
+      ? 'me conoces como nadie. hay una sorpresa esperándote — baja a verla.'
+      : triviaScore >= 3
+        ? 'me conoces bien, pero quedan detalles por descubrir. inténtalo otra vez si quieres alcanzar la sorpresa.'
+        : 'el amor no se mide en aciertos. inténtalo otra vez si quieres.';
+    triviaResult.innerHTML = `
+      <div class="result-screen">
+        <div class="icon">${icon}</div>
+        <h3>${titulo}</h3>
+        <div class="score">${triviaScore} de ${triviaQuestions.length}</div>
+        <p>${mensaje}</p>
+        <button class="btn" onclick="startTrivia()">jugar otra vez</button>
+      </div>
+    `;
+    if(perfect){
+      const surprise = document.getElementById('surprise');
+      surprise.classList.add('active');
+      setTimeout(()=>surprise.scrollIntoView({behavior:'smooth'}), 800);
+    }
+  }
+
+// ===== MÚSICA DE FONDO (canción real) =====
+const musicBtn = document.getElementById('musicBtn');
+const audio = new Audio('fotos/nuestra cancion.mp3');
+audio.loop = true;
+audio.volume = 0.5;
+let isPlaying = false;
+
+musicBtn.addEventListener('click', () => {
+  if(!isPlaying){
+    audio.play();
+    isPlaying = true;
+    musicBtn.classList.add('playing');
+  } else {
+    audio.pause();
+    isPlaying = false;
+    musicBtn.classList.remove('playing');
+  }
+});
+// Arranca la música con el primer click/toque en la página
+document.addEventListener('click', () => {
+  if(!isPlaying){
+    audio.play().then(() => {
+      isPlaying = true;
+      musicBtn.classList.add('playing');
+    }).catch(() => {});
+  }
+}, { once: true });
+</script>
+</body>
+</html>
